@@ -1,0 +1,25 @@
+history: 1
+task : "test"
+
+# evaluater Configuration
+evaluator:
+  instructions: 
+
+evaluatee:
+  model: "gpt-4o"
+  instructions: |
+    Please answer the following questions to the best of your ability. 
+    You will be evaluated based on your responses. 
+
+# Logging Configuration
+logging:
+  save_to_file: true
+  output_dir: "logs"
+  filename_template: "evaluate_{timestamp}.log"
+
+
+# Logging Configuration
+saver:
+  save_to_file: true
+  output_dir: "results"
+  filename_template: "evaluate_{timestamp}.log"
