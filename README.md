@@ -97,3 +97,7 @@ python evaluate.py --mode preference \
 - The `history` option:
   - `1` keeps track of all previous logs interactively.
   - `0` summarizes instead of storing the full log.
+
+
+# Citation
+TBD
