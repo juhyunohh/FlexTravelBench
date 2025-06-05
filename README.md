@@ -10,22 +10,18 @@ This is the official GitHub repository for [Flex-TravelPlanner: A Benchmark for 
 
 
 # Dataset Generation for Evaluation
-
-## Database
+## Reference Information
 
 Files in the `./agents/evaluation/database` directory:
-- `{test|train|validation}_ref_info.jsonl`: reference information for scoring
-- `val_dataset_without_{constraint_type}_one.json`: dataset with one constraint removed
+- `{test|train|validation}_ref_info.jsonl`: reference information used for scoring.
 
----
-
-## Dataset Generation Script (`dataset_generate.py`)
+## Dataset Generation Script for (`dataset_generate.py`)
 
 This script generates evaluation datasets by removing constraints from the original TravelPlanner dataset.  
 There are two main generation strategies:
 
 1. Removing single constraints
-2. Removing pairs of constraints (global-local combinations)
+2. Removing pairs of constraints (global-local, local-global combinations)
 
 ### Usage Example
 
@@ -45,6 +41,12 @@ generate_dataset(
     local_constraints=['house rule', 'room type', 'cuisine']
 )
 ```
+
+## Pre-generated Datasets
+Datasets generated from the validation set are available in the `./agents/evaluation/database` directory:
+- `val_dataset_without_{constraint_type}_one.json`: datasets for two-turn evaluation (single constraint removed).
+- `val_dataset_without_two_constraints_{constratint_combination}.json`: datasets for three-turn evaluation (pairs of constraints removed).
+- `./preference/val_dataset_full_{budget_size}_budget.json`: datasets for priority-aware evaluation
 
 # Evaluation Script
 
@@ -92,11 +94,10 @@ python evaluate.py --mode preference \
 ```
 ---
 
-# config/test.yaml
-
-- The `history` option:
-  - `1` keeps track of all previous logs interactively.
-  - `0` summarizes instead of storing the full log.
+# Other settings
+You can adjust the evaluation mode by setting the history option in the `.config/test.yaml` file:
+  - `1`: keeps track of all previous logs interactively.
+  - `0`: provides a summary of history instead of storing the full log.
 
 
 # Citation

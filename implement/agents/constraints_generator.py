@@ -197,46 +197,19 @@ def update_constraints_and_query(
     updated_query_constraint["local_constraint"] = local_constraints
     return updated_query_constraint, query_description
 
-# # Example usage
-# base_constraint = {
-#     "org": "St. Petersburg",
-#     "dest": "Rockford",
-#     "days": 3,
-#     "visiting_city_number": 1,
-#     "date": "['2022-03-16', '2022-03-17', '2022-03-18']",
-#     "local_constraint": {
-#         "house rule": None,
-#         "cuisine": None,
-#         "room type": None,
-#         "transportation": None
-#     },
-#     "budget": 1700,
-#     "people_number": 1,
-#     "ratings": 4.0
-# }
-
-# constraint = {"budget": (20, "decrease")}
-# updated_constraints, query = update_constraints_and_query(base_constraint, constraint)
-# print("Updated Constraints:", updated_constraints)
-# print("Query:", query)
-
-
 
 def find_min_restaurant(data, cuisine=None, rating=None):
-    # DataFrame 생성
 
     df = pd.DataFrame(data[0])
     df.columns = df.columns.str.lower()
     df['cuisines'] = df['cuisines'].apply(lambda x: x if isinstance(x, list) else x.split(', '))
-    # Cuisine이 있는 경우 필터링
+
     if cuisine:
         df = df[df['cuisines'].apply(lambda x: any(c in x for c in (cuisine if isinstance(cuisine, list) else [cuisine])))]
     
-    # Rating이 있는 경우 필터링
     if rating is not None:
         df = df[df['aggregate rating'] >= rating]
     
-    # 최소 Cost 찾기
     if not df.empty:
         min_cost_row = df.loc[df['average cost'].idxmin()]
         return min_cost_row[['name', 'average cost']].to_dict()
@@ -246,11 +219,8 @@ def find_min_restaurant(data, cuisine=None, rating=None):
 
 
 def find_min_room(data, room_type=None, house_rule=None, city=None):
-    # DataFrame 생성
-
     df = pd.DataFrame(data[0])
     df.columns = df.columns.str.lower()
-    # Room Type이 있는 경우 필터링
     room_type_filters = {
         'not shared room': lambda x: x.lower() != 'shared room',
         'shared room': lambda x: x.lower() == 'shared room',
@@ -264,23 +234,18 @@ def find_min_room(data, room_type=None, house_rule=None, city=None):
         'visitors': 'No visitors',
         'pets': 'No pets'
     }
-    # room_type이 존재할 경우 필터링 적용
     
     if room_type and (room_type.lower() in room_type_filters):
         df = df[df['room type'].apply(room_type_filters[room_type.lower()])]
 
-    
-    # House Rule이 있는 경우 필터링
     if house_rule and house_rule:
       #  df = df[df['house_rules'].str.contains(house_rule, case=False, na=False)]
-        exclude_condition = rule_map[house_rule].lower()  # 제외할 기준을 소문자로 변환
-        df = df[~df['house_rules'].str.lower().eq(exclude_condition)]  # 일치하는 항목 제거
+        exclude_condition = rule_map[house_rule].lower() 
+        df = df[~df['house_rules'].str.lower().eq(exclude_condition)]  
 
-    # City가 있는 경우 필터링
     if city:
         df = df[df['city'].str.contains(city, case=False, na=False)]
     
-    # 최소 Price 찾기
     if not df.empty:
         min_price_row = df.loc[df['price'].idxmin()]
         return min_price_row[['name', 'price', 'city']].to_dict()
@@ -384,7 +349,7 @@ def find_min_N_cuisine_max(budget, N_meal, cuisine_max, cuisine_min):
         if total_cost > budget:
             return N_cuisine_max
     
-    return None  # 조건을 만족하는 값이 없을 경우
+    return None 
 
 def find_min_N_rating_max(budget, N_meal, cuisine_min, reference):
     df = pd.DataFrame(reference[0])
