@@ -1,3 +1,14 @@
+<div align="center">
+  <h1>Flex-TravelPlanner: A Benchmark for Flexible Planning with Language Agents</h1>
+  <p>
+    <a href="https://openreview.net/forum?id=a7unQ5jMx7"><img src="https://img.shields.io/badge/Paper-Flex-TravelPlanner-green" alt="Paper"></a>
+    <a href="https://github.com/juhyunohh/FlexTravelBench/"><img src="https://img.shields.io/badge/Github-Flex-TravelPlanner-blue" alt="Code"></a>
+  </p>
+</div>  
+
+This is the official GitHub repository for [Flex-TravelPlanner: A Benchmark for Flexible Planning with Language Agents]([https://arxiv.org/abs/2412.10424](https://openreview.net/forum?id=a7unQ5jMx7)).
+
+
 # Dataset Generation for Evaluation
 
 ## Database
